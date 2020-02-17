@@ -4,6 +4,7 @@ from sklearn import preprocessing
 from sklearn.cluster import MiniBatchKMeans
 from rdkit.Chem import AllChem
 from rdkit import Chem, DataStructs
+import BitVector
 
 
 def read_lst(dpth):
@@ -22,8 +23,8 @@ if __name__ == '__main__':
     for i in range(len(train_str_lst)):
         train_lst.append([])
         for ele in train_str_lst[i]:
-            train_lst[i].append(float(ele))
-
+            train_lst[i].append(int(ele))
+        train_lst[i] = BitVector.BitVector(bitlist=train_lst[i])
 
     # for key, value in smiles_dict.items():
     #     print(key, value, sep='\t')
@@ -73,4 +74,3 @@ if __name__ == '__main__':
 
     for i in tqdm(range(len(train_lst))):
         fp_lst[int(train_labels[i])].write(template_lst[i] + '\n')
-

@@ -4,7 +4,7 @@ from sklearn import preprocessing
 from sklearn.cluster import MiniBatchKMeans
 from rdkit.Chem import AllChem
 from rdkit import Chem, DataStructs
-
+import BitVector
 
 def read_lst(dpth):
     res_lst = []
@@ -30,9 +30,8 @@ def smarts_to_vector(tmp_lst):
 
         arr_tgt = preprocess(express[0].lstrip('(').rstrip(')'))
         arr_src = preprocess(express[-1])
-
-        train_lst.append(np.concatenate((arr_tgt, arr_src)))
-
+        arr = np.concatenate((arr_tgt, arr_src))
+        train_lst.append(BitVector.BitVector(bitlist=arr))
     return train_lst
 
 
@@ -59,5 +58,5 @@ def save_list(lst, path):
 
 if __name__ == '__main__':
     template_lst = read_lst('/Users/liuzixuan/Downloads/template_all.txt')
-    train_lst = smarts_to_vector(template_lst[:100])
+    train_lst = smarts_to_vector(template_lst[:10])
     save_list(train_lst, '/Users/liuzixuan/Downloads/da.txt')
