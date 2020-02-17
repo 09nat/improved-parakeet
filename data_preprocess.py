@@ -30,8 +30,8 @@ def smarts_to_vector(tmp_lst):
 
         arr_tgt = preprocess(express[0].lstrip('(').rstrip(')'))
         arr_src = preprocess(express[-1])
-        arr = np.concatenate((arr_tgt, arr_src))
-        train_lst.append(arr)
+
+        train_lst.append(np.concatenate((arr_tgt, arr_src)))
 
     return train_lst
 
